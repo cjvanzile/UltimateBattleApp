@@ -5,9 +5,9 @@ Simulate a race between contenders using threads.
 UltimateBattleApp will create several contender threads, and simulate a race between them. The first contender to complete 200 push-ups wins!
 
 ## Course Info
-Name: ** Clay VanZile **
-Course: ** COP 3330C **
-CRN: ** 17193 **
+Name: **Clay VanZile**  
+Course: **COP 3330C**  
+CRN: **17193**
 
 ## Concepts
 This program demonstrates using *user* threads to run multiple concurrent code segments within the same program.
