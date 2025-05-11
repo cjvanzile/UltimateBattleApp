@@ -1,0 +1,49 @@
+/*
+Clay VanZile
+COP 3330C-17193
+09/29/2024 */
+
+
+//UltimateBattleApp will create several contender threads, and simulate a race between them. The first contender
+// to complete 200 push-ups wins!
+public class UltimateBattleApp {
+    public static void main(String [] args) {
+
+        //create fuel object to synchronize between all threads
+        Water drink = new Water();
+        //create several car objects for the race
+        Contender[] contenders = new Contender[]{
+                // I put the spaces to make it easier to see which is the Hulk
+                new Contender("                                         Hulk", 16,50, drink ),
+                new Contender("Captain America", 8, 25, drink ),
+        };
+
+        //create an array of threads, one for each contender object
+        Thread [] contenderThreads = new Thread[contenders.length];
+        for (int i = 0; i < contenders.length; i++) {
+            contenderThreads[i] = new Thread(contenders[i]);
+            //set the thread as user thread, Daemon is the default value
+            contenderThreads[i].setDaemon(false);
+        }
+        //Start the car threads (start the race). These rules run concurrently
+        //enhance for loop example
+        for (Thread raceTime: contenderThreads) {
+            raceTime.start();
+        }
+        System.out.println("The race has begun!");
+
+        while ( !Contender.winner) {
+            // All work is handled in the Contender class run() function
+        }
+
+        //once the winner crosses the finish line, interrupt the remaining threads to end the race.
+        for (int i = 0; i < contenders.length; i++) {
+            if (contenders[i].getTotalPushUps() < 200){
+                // Since this competitor did not reach 200 push-ups, they lost
+                System.out.println( contenders[i].getCompetitor() + " just lost the race with "
+                        + contenders[i].getTotalPushUps() + " push ups. :-(" );
+                contenderThreads[i].interrupt(); // Interrupts the thread
+            }
+        }
+    }
+}
